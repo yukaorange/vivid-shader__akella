@@ -21,7 +21,7 @@ const readConfigJSONFile = (filePath) => {
   });
 };
 
-// サイトのルートを決定
+// site root
 const root = resolve(__dirname, "src/pages");
 
 export default defineConfig(async () => {
@@ -37,11 +37,6 @@ export default defineConfig(async () => {
     publicDir: resolve(__dirname, "public"),
     server: {
       port: 8080,
-      // https: {
-      //   // mkcert 等でSSL証明書を作成すると HTTPS が有効になります
-      //   key: fs.readFileSync("./localhost-key.pem"),
-      //   cert: fs.readFileSync("./localhost.pem"),
-      // },
     },
     build: {
       outDir: resolve(__dirname, "dist"),

@@ -1,10 +1,8 @@
-@use "@/globals/" as *;
-
-// 全ページで適用されるスタイル
-@use "@/globals/base";
+// common
+@use "@/config/base";
 @use "@/components";
-@use "@/utils";
+@use "@/projects";
 @use "@/layouts";
 
-// 各ページ専用のスタイル
+// page
 @use "@/pages";

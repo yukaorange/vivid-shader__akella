@@ -4,8 +4,10 @@
     {{>head}}
   </head>
   <body>
-    <p class="hoge">hoge要素</p>
-    <a href="/about/">aboutページへ</a>
-    {{>banner}}
+    {{>header page="home"}} {{>drawer-nav}}
+    <div class="content" data-template="home">
+      <p class="hoge home-section_serif">HOGE要素</p>
+      <a href="/about/">aboutページへ</a>
+    </div>
   </body>
 </html>

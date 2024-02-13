@@ -1,23 +1,18 @@
 {
   "site": {
-    "name": "サンプルサイト",
+    "name": "takaoka-portfolio",
     "name_separate": " | ",
-    "domain": "example.com",
+    "domain": "takaoka.com",
     "favicon": "/favicon.svg",
-    "description": "サンプルサイトの説明文です。",
+    "description": "this is a portfolio site.",
     "ogp": {
       "type": "website",
       "image": "/ogp.jpg"
     },
     "twitter": {
       "card": "summary_large_image",
-      "username": "@example"
+      "username": "@takaoka"
     }
-  },
-  "js": {
-    "jQuery": true,
-    "jQueryEasing": true,
-    "gsap": false
   },
   "image": {
     "optimization": {
