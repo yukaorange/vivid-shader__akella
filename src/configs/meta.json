@@ -1,7 +1,7 @@
 {
-  "/about/index.html": {
-    "pageTitle": "会社概要",
-    "description": "会社概要ページの説明文です。",
+  "/page2/index.html": {
+    "pageTitle": "page2",
+    "description": "page2 description",
     "ogp": {
       "type": "article",
       "image": "/images/ogp.jpg"
@@ -10,7 +10,18 @@
       "card": "summary"
     }
   },
-  "/about/enkaku.html": {
-    "pageTitle": "会社の沿革ページ"
+  "/about/sub.html": {
+    "pageTitle": "page2 sub page"
+  },
+  "/page3/index.html": {
+    "pageTitle": "page3",
+    "description": "page3 description",
+    "ogp": {
+      "type": "article",
+      "image": "/images/ogp.jpg"
+    },
+    "twitter": {
+      "card": "summary"
+    }
   }
 }

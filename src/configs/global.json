@@ -4,7 +4,7 @@
     "name_separate": " | ",
     "domain": "takaoka.com",
     "favicon": "/favicon.svg",
-    "description": "this is a portfolio site.",
+    "description": "portfolio site.",
     "ogp": {
       "type": "website",
       "image": "/ogp.jpg"

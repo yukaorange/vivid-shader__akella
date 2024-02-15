@@ -4,10 +4,19 @@
     {{>head}}
   </head>
   <body>
-    {{>header page="home"}} {{>drawer-nav}}
+    <!-- preloader  -->
+    {{>preloader}}
+    <!-- header  -->
+    {{>header}}
+    <!-- content  -->
     <div class="content" data-template="home">
-      <p class="hoge home-section_serif">HOGE要素</p>
-      <a href="/about/">aboutページへ</a>
+      <div class="home">
+        <h2>Home</h2>
+        <p class="home__text">home page</p>
+        <a class="home__link" href="/page2/">page2</a>
+        <a class="home__link" href="/page3/">page3</a>
+      </div>
     </div>
+    <div id="webgl"></div>
   </body>
 </html>

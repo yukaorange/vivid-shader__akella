@@ -1,7 +1,0 @@
-@use "./../../mixin/" as *;
-
-@include mq(sp) {
-  .home-section {
-    display: none;
-  }
-}

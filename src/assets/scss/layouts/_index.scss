@@ -1,5 +1,6 @@
-@use "./header";
-@use "./footer";
-@use "./drawer-menu";
-@use "./aside";
-@use "./aside-sns";
+@forward "./header";
+@forward "./footer";
+@forward "./webgl";
+@forward "./drawer-nav";
+@forward "./aside";
+@forward "./aside-sns";
