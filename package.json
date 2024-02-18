@@ -20,6 +20,7 @@
     "directory-crawler": "^0.0.6",
     "events": "^3.3.0",
     "glob": "^10.3.10",
+    "gsap": "^3.12.5",
     "lodash": "^4.17.21",
     "normalize-wheel": "^1.0.1",
     "prefix": "^1.0.0",
