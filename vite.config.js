@@ -8,10 +8,12 @@ import { rollupFiles } from './rollup'
 import { ViteMinifyPlugin } from 'vite-plugin-minify'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
+
 const configs = {
   global: {},
   meta: {}
 }
+
 
 // JSONファイルを読み込むための関数（./src/config/*.jsonでの利用を想定）
 const readConfigJSONFile = filePath => {
