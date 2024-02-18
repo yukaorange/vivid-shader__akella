@@ -21,7 +21,6 @@ const readConfigJSONFile = filePath => {
     resolve(JSON.parse(file))
   })
 }
-
 // site root
 const root = resolve(__dirname, 'src/pages')
 
