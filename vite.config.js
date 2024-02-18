@@ -8,7 +8,6 @@ import { rollupFiles } from './rollup'
 import { ViteMinifyPlugin } from 'vite-plugin-minify'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
-// 設定ファイルで取得したデータを格納する
 const configs = {
   global: {},
   meta: {}
@@ -21,7 +20,7 @@ const readConfigJSONFile = filePath => {
     resolve(JSON.parse(file))
   })
 }
-// site root
+
 const root = resolve(__dirname, 'src/pages')
 
 export default defineConfig(async () => {
