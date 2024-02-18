@@ -40,13 +40,13 @@ export default defineConfig(async () => {
     build: {
       outDir: resolve(__dirname, 'dist'),
       rollupOptions: {
-        // input: rollupOptionsInput
+        input: rollupOptionsInput
       },
       css: {
         devSourcemap: true, // SCSSのソースマップを生成（ビルド時には自動的に無効になる）
         postcss: {
           // .browserslistrcで指定したブラウザ用にCSSを自動で調整してくれる
-          // plugins: [autoprefixer()]
+          plugins: [autoprefixer()]
         }
       }
     },
