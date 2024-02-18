@@ -1,4 +1,4 @@
-// import GSAP from 'gsap'
+import GSAP from 'gsap'
 import { PerspectiveCamera, WebGLRenderer, Scene, LoopOnce } from 'three'
 
 import { Pane } from 'tweakpane'
