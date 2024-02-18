@@ -1,5 +1,4 @@
-import GSAP from 'gsap'
-
+// import GSAP from 'gsap'
 import { PerspectiveCamera, WebGLRenderer, Scene, LoopOnce } from 'three'
 
 import { Pane } from 'tweakpane'
@@ -8,7 +7,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Home from './Home'
 
 export default class Canvas {
-  constructor({ template, dom,device }) {
+  constructor({ template, dom, device }) {
     this.template = template
 
     this.container = dom
@@ -93,7 +92,7 @@ export default class Canvas {
     this.home = new Home({
       scene: this.scene,
       sizes: this.sizes,
-      device : this.device
+      device: this.device
     })
   }
 
@@ -127,14 +126,13 @@ export default class Canvas {
   }
 
   onResize(device) {
-
     this.renderer.setSize(window.innerWidth, window.innerHeight) //expand canvas to full screen.
 
     const aspect = window.innerWidth / window.innerHeight
 
     const fov = this.camera.fov * (Math.PI / 180) // default camera.fov = 45deg. result fov is in radians. (1/4 PI rad)
 
-    const height = 2 * Math.tan(fov / 2) * this.camera.position.z //z = 5
+    const height = 2 * Math.tan(fov / 2) * this.camera.position.z //z = 5 is setted at this.createCamera
 
     const width = height * aspect //To fit clip space to screen.
 
