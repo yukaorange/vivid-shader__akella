@@ -1,4 +1,4 @@
-import Component from '../class/Component'
+import Component from '@js/class/Component'
 import each from 'lodash/each'
 import GSAP from 'gsap'
 import { TextureLoader } from 'three'

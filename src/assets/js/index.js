@@ -1,28 +1,28 @@
 import each from 'lodash/each'
 import normalizeWheel from 'normalize-wheel'
 
-import BreakpointsObserver from './class/BreakpointsObserver'
+import BreakpointsObserver from '@js/class/BreakpointsObserver'
 
-import Canvas from './webgl'
+import Canvas from '@js/webgl'
 
-import Preloader from './component/Preloader'
-import DrawerNavigation from './component/DrawerNavigation'
+import Preloader from '@js/component/Preloader'
+import DrawerNavigation from '@js/component/DrawerNavigation'
 
-import Home from './pages/Home/Home'
-import Page2 from './pages/Page2/Page2'
-import Page3 from './pages/Page3/Page3'
+import Home from '@js/pages/Home/Home'
+import Page2 from '@js/pages/Page2/Page2'
+import Page3 from '@js/pages/Page3/Page3'
 
 const assets = document.querySelectorAll('.preloader img')
 
 class App {
   constructor() {
     this.createBreakPoint()
-    
+
     this.createContent()
 
-    this.createCanvas()
-
     this.createPreloader()
+
+    this.createCanvas()
 
     this.createNavigation()
 
@@ -31,7 +31,7 @@ class App {
     this.addEventListeners()
 
     this.addLinkListeners()
-    
+
     this.update()
 
     this.onResize()

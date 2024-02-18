@@ -1,4 +1,4 @@
-import Page from '../../class/Page'
+import Page from "@js/class/Page";
 
 export default class Page3 extends Page {
   constructor() {

@@ -82,7 +82,7 @@ export default defineConfig(async () => {
       // SCSSファイルで外部ファイルを読み込むときに活用すると便利。
       alias: {
         '@': resolve(__dirname, 'src/assets/scss'),
-        '@js': resolve(__dirname, 'src/assets/js')
+        '@js': resolve(__dirname, 'src/assets/js'),
       }
     }
   }
