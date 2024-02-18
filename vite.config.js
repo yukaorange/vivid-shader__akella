@@ -13,6 +13,7 @@ const configs = {
   meta: {}
 }
 
+
 // JSONファイルを読み込むための関数（./src/config/*.jsonでの利用を想定）
 const readConfigJSONFile = filePath => {
   return new Promise(async resolve => {
