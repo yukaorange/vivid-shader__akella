@@ -1,12 +1,12 @@
-import glsl from 'vite-plugin-glsl'
-import fs from 'fs'
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
-import autoprefixer from 'autoprefixer'
-import handlebars from 'vite-plugin-handlebars'
-import { rollupFiles } from './rollup'
-import { ViteMinifyPlugin } from 'vite-plugin-minify'
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
+// import glsl from 'vite-plugin-glsl'
+// import fs from 'fs'
+// import { resolve } from 'path'
+// import { defineConfig } from 'vite'
+// import autoprefixer from 'autoprefixer'
+// import handlebars from 'vite-plugin-handlebars'
+// import { rollupFiles } from './rollup'
+// import { ViteMinifyPlugin } from 'vite-plugin-minify'
+// import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 // const configs = {
 //   global: {},
