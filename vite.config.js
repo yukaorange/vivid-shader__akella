@@ -33,7 +33,7 @@ export default defineConfig(async () => {
 
   return {
     root: root,
-    base: '/',
+    base: './',
     publicDir: resolve(__dirname, 'public'),
     server: {
       port: 8080
