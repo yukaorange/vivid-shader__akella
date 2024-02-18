@@ -8,20 +8,20 @@ import { rollupFiles } from './rollup'
 import { ViteMinifyPlugin } from 'vite-plugin-minify'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
-const configs = {
-  global: {},
-  meta: {}
-}
+// const configs = {
+//   global: {},
+//   meta: {}
+// }
 
-// JSONファイルを読み込むための関数（./src/config/*.jsonでの利用を想定）
-const readConfigJSONFile = filePath => {
-  return new Promise(async resolve => {
-    const file = fs.readFileSync(filePath)
-    resolve(JSON.parse(file))
-  })
-}
+// // JSONファイルを読み込むための関数（./src/config/*.jsonでの利用を想定）
+// const readConfigJSONFile = filePath => {
+//   return new Promise(async resolve => {
+//     const file = fs.readFileSync(filePath)
+//     resolve(JSON.parse(file))
+//   })
+// }
 
-const root = resolve(__dirname, 'src/pages')
+// const root = resolve(__dirname, 'src/pages')
 
 // export default defineConfig(async () => {
 //   // ビルド対象のHTMLファイルをリスト化する
