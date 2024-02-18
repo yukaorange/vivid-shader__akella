@@ -8,18 +8,18 @@ import { rollupFiles } from './rollup'
 import { ViteMinifyPlugin } from 'vite-plugin-minify'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
-// const configs = {
-//   global: {},
-//   meta: {}
-// }
+const configs = {
+  global: {},
+  meta: {}
+}
 
 // JSONファイルを読み込むための関数（./src/config/*.jsonでの利用を想定）
-// const readConfigJSONFile = filePath => {
-//   return new Promise(async resolve => {
-//     const file = fs.readFileSync(filePath)
-//     resolve(JSON.parse(file))
-//   })
-// }
+const readConfigJSONFile = filePath => {
+  return new Promise(async resolve => {
+    const file = fs.readFileSync(filePath)
+    resolve(JSON.parse(file))
+  })
+}
 
 const root = resolve(__dirname, 'src/pages')
 
@@ -27,8 +27,8 @@ export default defineConfig(async () => {
   // ビルド対象のHTMLファイルをリスト化する
   const rollupOptionsInput = await rollupFiles('./src/pages', '.html', {})
   // サイト設定のJSONファイルを読み込む
-  // configs.global = await readConfigJSONFile('./src/configs/global.json')
-  // configs.meta = await readConfigJSONFile('./src/configs/meta.json')
+  configs.global = await readConfigJSONFile('./src/configs/global.json')
+  configs.meta = await readConfigJSONFile('./src/configs/meta.json')
 
   return {
     root: root,
@@ -43,7 +43,7 @@ export default defineConfig(async () => {
         input: rollupOptionsInput
       },
       css: {
-        devSourcemap: true, 
+        devSourcemap: true,
         postcss: {
           // .browserslistrcで指定したブラウザ用にCSSを自動で調整してくれる
           plugins: [autoprefixer()]
@@ -74,7 +74,7 @@ export default defineConfig(async () => {
         }
       }),
       ViteImageOptimizer(configs.global.image.optimization),
-      // glsl()
+      glsl()
     ],
     resolve: {
       // src/assets/scss を @ として読み込むことができる。
