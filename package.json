@@ -6,7 +6,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "dev": "vite",
-    "build": "vite build && npm run format-html",
+    "format": "vite build && npm run format-html",
+    "build": "vite build",
     "production": "vite build",
     "preview": "vite preview",
     "format-html": "prettier --write dist/**/*.html"
