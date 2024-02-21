@@ -97,7 +97,6 @@ export default class Canvas {
   }
 
   destroyHome() {
-    if (!this.home) return
     this.home.destroy()
   }
 
@@ -121,7 +120,7 @@ export default class Canvas {
     if (template == 'home') {
       this.createHome()
     } else {
-      // this.destroyHome()
+      this.destroyHome()
     }
   }
 

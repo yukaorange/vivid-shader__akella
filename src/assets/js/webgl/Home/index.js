@@ -129,6 +129,6 @@ export default class Home {
    * destroy
    */
   destroy() {
-    this.scene.remove(this.plane)
+    this.scene.remove(this.plane.mesh)
   }
 }

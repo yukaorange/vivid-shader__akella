@@ -206,9 +206,6 @@ class App {
 
         event.preventDefault()
 
-
-        console.log(url)
-
         this.onChange({ url: href })
       }
     })
