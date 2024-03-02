@@ -79,42 +79,91 @@ body {
   }
 }
 
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+}
+
+p {
+  font-size: var(--font-size-base);
+}
+
+h1 {
+  font-size: var(--font-size-6);
+}
+
+h2 {
+  font-size: var(--font-size-5);
+}
+
+h3 {
+  font-size: var(--font-size-4);
+}
+
+h4 {
+  font-size: var(--font-size-3);
+}
+
+h5 {
+  font-size: var(--font-size-2);
+}
+
+h6 {
+  font-size: var(--font-size-1);
+}
+
 // Safari対策
 a[href^="tel"] {
   text-decoration: none;
 }
 
-@include mq(sp) {
-  [data-device="pc"] {
-    display: none !important;
-  }
+[data-device="sp"] {
+  display: none;
+}
+[data-device="pc"] {
+  display: inherit;
 }
 
-@include mq(pc) {
+@include mq(sp) {
   [data-device="sp"] {
-    display: none !important;
+    display: inherit;
+  }
+  [data-device="pc"] {
+    display: none;
   }
 }
 
 a {
+  font-size: var(--font-size-base);
   color: inherit;
+  text-decoration: none;
+  transition: var(--duration);
 }
 
 @media (hover: hover) and (pointer: fine) {
   a:hover {
     text-decoration: none;
+    opacity: 0.8;
   }
 }
 
-img,
 svg {
-  vertical-align: bottom;
 }
 
 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  vertical-align: bottom;
+}
+
+ul,
+ol {
+  list-style: none;
 }
 
 // SVGスプライトのためのスタイル
@@ -125,6 +174,23 @@ img {
     display: block;
     height: 0;
   }
+}
+
+//font-size
+:root {
+  --font-size-small-3: calc(1.5rem * 8 / 11);
+  --font-size-small-2: calc(1.5rem * 8 / 10);
+  --font-size-small-1: calc(1.5rem * 8 / 9);
+  --font-size-base: calc(1.5rem * 8 / 8);
+  --font-size-1: calc(1.5rem * 8 / 7);
+  --font-size-2: calc(1.5rem * 8 / 6);
+  --font-size-3: calc(1.5rem * 8 / 5);
+  --font-size-4: calc(1.5rem * 8 / 4);
+  --font-size-5: calc(1.5rem * 8 / 3);
+  --font-size-6: calc(1.5rem * 8 / 2);
+  --font-size-7: calc(1.5rem * 8 / 1);
+  --font-size-8: calc(1.5rem * 8 / 0.8);
+  --font-size-9: calc(1.5rem * 8 / 0.6);
 }
 
 //color

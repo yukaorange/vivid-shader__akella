@@ -1,5 +1,5 @@
 import GSAP from 'gsap'
-import { PerspectiveCamera, WebGLRenderer, Scene, LoopOnce } from 'three'
+import { PerspectiveCamera, WebGLRenderer, Scene, Clock } from 'three'
 
 import { Pane } from 'tweakpane'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -24,6 +24,12 @@ export default class Canvas {
       end: 0
     }
 
+    this.time = {
+      current: 0,
+      previous: 0,
+      delta: 0
+    }
+
     this.createRenderer()
 
     this.createScene()
@@ -34,12 +40,12 @@ export default class Canvas {
 
     this.createControls()
 
+    this.createClock()
+
     this.onResize(this.device)
   }
 
   createRenderer() {
-    this.canvas = document.querySelector('.canvas')
-
     this.renderer = new WebGLRenderer({
       alpha: true,
       antialias: true
@@ -87,6 +93,10 @@ export default class Canvas {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
   }
 
+  createClock() {
+    this.clock = new Clock()
+  }
+
   /**home */
   createHome() {
     this.home = new Home({
@@ -109,11 +119,11 @@ export default class Canvas {
   }
 
   onChangeStart(template) {
-    this.template = template
-
-    if (this.home) {
+    if (this.template !== template && template !== 'home') {
       this.home.hide()
     }
+
+    this.template = this.template !== template ? template : this.template
   }
 
   onChangeEnd(template) {
@@ -268,6 +278,12 @@ export default class Canvas {
       this.home.update(scroll)
       this.home.setParameter(this.PARAMS)
     }
+
+    const timeDelta = this.clock.getDelta() * this.time.delta
+
+    this.time.previous = this.time.current
+
+    this.time.current += timeDelta
 
     this.renderer.render(this.scene, this.camera)
   }
