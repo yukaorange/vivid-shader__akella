@@ -4,6 +4,8 @@ import { PerspectiveCamera, WebGLRenderer, Scene, Clock } from 'three'
 import { Pane } from 'tweakpane'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
+import PostProcessPipeline from './class/PostProcessPipeline'
+
 import Home from './Home'
 
 export default class Canvas {
@@ -41,6 +43,8 @@ export default class Canvas {
     this.createControls()
 
     this.createClock()
+
+    this.createPostProcessPipeline()
 
     this.onResize(this.device)
   }
@@ -123,7 +127,7 @@ export default class Canvas {
       this.home.hide()
     }
 
-    this.template = this.template !== template ? template : this.template
+    this.template = template
   }
 
   onChangeEnd(template) {
@@ -135,7 +139,7 @@ export default class Canvas {
   }
 
   onResize(device) {
-    this.renderer.setSize(window.innerWidth, window.innerHeight) //expand canvas to full screen.
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
 
     const aspect = window.innerWidth / window.innerHeight
 
@@ -158,6 +162,10 @@ export default class Canvas {
 
     if (this.home) {
       this.home.onResize(values)
+    }
+
+    if (this.postProcessPipeline) {
+      this.postProcessPipeline.resize(values)
     }
 
     this.camera.aspect = aspect
@@ -271,20 +279,38 @@ export default class Canvas {
     }
   }
 
+  /**
+   * postprocess
+   */
+  createPostProcessPipeline() {
+    this.postProcessPipeline = new PostProcessPipeline({
+      renderer: this.renderer,
+      scene: this.scene,
+      camera: this.camera
+    })
+
+    this.postProcessPipeline.createPasses()
+
+    this.postProcessPipeline.createPostProcess()
+  }
+
   /**loop */
 
   update(scroll) {
     if (this.home) {
-      this.home.update(scroll)
+      this.home.update({
+        scroll: scroll,
+        time: this.time
+      })
       this.home.setParameter(this.PARAMS)
     }
 
-    const timeDelta = this.clock.getDelta() * this.time.delta
+    this.time.delta = this.clock.getDelta()
 
     this.time.previous = this.time.current
 
-    this.time.current += timeDelta
+    this.time.current += this.time.delta
 
-    this.renderer.render(this.scene, this.camera)
+    this.postProcessPipeline.render()
   }
 }

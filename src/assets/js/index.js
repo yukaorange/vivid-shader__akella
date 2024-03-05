@@ -9,8 +9,6 @@ import Preloader from '@js/component/Preloader'
 import DrawerNavigation from '@js/component/DrawerNavigation'
 
 import Home from '@js/pages/Home/Home'
-import Page2 from '@js/pages/Page2/Page2'
-import Page3 from '@js/pages/Page3/Page3'
 
 const assets = document.querySelectorAll('.preloader img')
 
@@ -83,9 +81,7 @@ class App {
 
   createPages() {
     this.pages = {
-      home: new Home(),
-      page2: new Page2(),
-      page3: new Page3()
+      home: new Home()
     }
 
     this.page = this.pages[this.template]
@@ -196,10 +192,6 @@ class App {
   addLinkListeners() {
     const links = document.querySelectorAll('a')
 
-
-
-
-    
     each(links, link => {
       link.onclick = event => {
         const { href } = link

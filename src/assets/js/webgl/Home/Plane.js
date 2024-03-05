@@ -37,7 +37,8 @@ export default class Plane {
       side: THREE.DoubleSide,
       uniforms: {
         // uTexture: { value: this.texture },
-        uAlpha: { value: 0 }
+        uAlpha: { value: 0 },
+        uTime: { value: 0 }
       }
     })
   }
@@ -107,12 +108,14 @@ export default class Plane {
 
   updateY(y = 0) {}
 
-  update(scroll, speed) {
+  update({ scroll, time }) {
     this.updateX(scroll.x)
 
     this.updateY(scroll.y)
 
-    this.program.uniforms.uSpeed.value = speed
+    this.mesh.rotation.y += time.delta
+
+    this.material.uniforms.uTime.value = time.current
   }
 
   setParameter(params) {

@@ -28,7 +28,7 @@ export default class Home {
     }
 
     this.scrollCurrent = {
-      //this is necessary to memolize touchstart position.
+      //necessary to memolize touchstart position.
       x: 0,
       y: 0
     }
@@ -117,8 +117,13 @@ export default class Home {
   /**
    * update
    */
-  update() {
+  update({ scroll, time }) {
     if (!this.plane) return
+
+    this.plane.update({
+      scroll: scroll,
+      time: time
+    })
   }
 
   setParameter(params) {
