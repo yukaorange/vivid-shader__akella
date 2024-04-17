@@ -303,9 +303,9 @@ export default class Canvas {
     if (this.home) {
       this.home.update({
         scroll: scroll,
-        time: this.time
+        time: this.time,
+        params: this.PARAMS
       })
-      this.home.setParameter(this.PARAMS)
     }
 
     this.time.delta = this.clock.getDelta()

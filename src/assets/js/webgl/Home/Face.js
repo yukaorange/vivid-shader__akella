@@ -1,6 +1,5 @@
 import GSAP from 'gsap'
 
-import { ShaderMaterial, Mesh } from 'three'
 import * as THREE from 'three'
 
 import vertex from '@js/shaders/vertex.glsl'
@@ -37,7 +36,7 @@ export default class Plane {
   }
 
   createMaterial() {
-    this.material = new ShaderMaterial({
+    this.material = new THREE.ShaderMaterial({
       vertexShader: vertex,
       fragmentShader: fragment,
       side: THREE.DoubleSide,
@@ -50,7 +49,7 @@ export default class Plane {
   }
 
   createMesh() {
-    this.mesh = new Mesh(this.geometry, this.material)
+    this.mesh = new THREE.Mesh(this.geometry, this.material)
   }
 
   calculateBounds({ sizes, device }) {
@@ -114,7 +113,7 @@ export default class Plane {
 
   updateY(y = 0) {}
 
-  update({ scroll, time, params }) {
+  update({ scroll, time }) {
     this.updateX(scroll.x)
 
     this.updateY(scroll.y)
@@ -122,7 +121,5 @@ export default class Plane {
     this.mesh.rotation.y += time.delta
 
     this.material.uniforms.uTime.value = time.current
-
-    this.mesh.material.uniforms.uAlpha.value = params.alpha
   }
 }
