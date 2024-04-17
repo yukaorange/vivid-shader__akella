@@ -7,14 +7,16 @@ import vertex from '@js/shaders/vertex.glsl'
 import fragment from '@js/shaders/fragment.glsl'
 
 export default class Plane {
-  constructor({ geometry, sizes, device }) {
-    this.geometry = geometry
-
+  constructor({ sizes, device, assets }) {
     this.sizes = sizes
 
     this.device = device
 
+    this.assets = assets
+
     this.createTexture()
+
+    this.cretateGeometry()
 
     this.createMaterial()
 
@@ -27,7 +29,11 @@ export default class Plane {
   }
 
   createTexture() {
-    // this.texture = window.TEXTURES[0]
+    // this.texture = this.assets.textures[0]
+  }
+
+  cretateGeometry() {
+    this.geometry = new THREE.PlaneGeometry(1, 1, 32, 32)
   }
 
   createMaterial() {
