@@ -1,20 +1,17 @@
 import GSAP from 'gsap'
 
-import { ShaderMaterial, Mesh } from 'three'
 import * as THREE from 'three'
 
 import vertex from '@js/shaders/vertex.glsl'
 import fragment from '@js/shaders/fragment.glsl'
 
-export default class Plane {
+export default class Object {
   constructor({ sizes, device, assets }) {
     this.sizes = sizes
 
     this.device = device
 
     this.assets = assets
-
-    this.createTexture()
 
     this.cretateGeometry()
 
@@ -28,16 +25,12 @@ export default class Plane {
     })
   }
 
-  createTexture() {
-    // this.texture = this.assets.textures[0]
-  }
-
   cretateGeometry() {
     this.geometry = new THREE.PlaneGeometry(1, 1, 32, 32)
   }
 
   createMaterial() {
-    this.material = new ShaderMaterial({
+    this.material = new THREE.ShaderMaterial({
       vertexShader: vertex,
       fragmentShader: fragment,
       side: THREE.DoubleSide,
@@ -50,7 +43,7 @@ export default class Plane {
   }
 
   createMesh() {
-    this.mesh = new Mesh(this.geometry, this.material)
+    this.mesh = new THREE.Mesh(this.geometry, this.material)
   }
 
   calculateBounds({ sizes, device }) {
@@ -97,16 +90,9 @@ export default class Plane {
    */
 
   updateScale() {
-    // console.log('plane device : ', this.device)
-
     if (this.device === 'sp') {
-      this.mesh.scale.x = this.sizes.width / 2
-
-      this.mesh.scale.y = this.sizes.width / 2
+      // this.mesh.scale.x = this.sizes.width / 2
     } else {
-      this.mesh.scale.x = this.sizes.height / 2
-
-      this.mesh.scale.y = this.sizes.height / 2
     }
   }
 
@@ -114,7 +100,7 @@ export default class Plane {
 
   updateY(y = 0) {}
 
-  update({ scroll, time, params }) {
+  update({ scroll, time }) {
     this.updateX(scroll.x)
 
     this.updateY(scroll.y)
@@ -122,7 +108,5 @@ export default class Plane {
     this.mesh.rotation.y += time.delta
 
     this.material.uniforms.uTime.value = time.current
-
-    this.mesh.material.uniforms.uAlpha.value = params.alpha
   }
 }
