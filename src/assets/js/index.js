@@ -2,6 +2,8 @@ import each from 'lodash/each'
 import normalizeWheel from 'normalize-wheel'
 
 import BreakpointsObserver from '@js/class/BreakpointsObserver'
+import Assets from '@js/class/Assets'
+import viewPortSetter from '@js/class/SetViewport'
 
 import Canvas from '@js/webgl'
 
@@ -10,10 +12,12 @@ import DrawerNavigation from '@js/component/DrawerNavigation'
 
 import Home from '@js/pages/Home/Home'
 
-const assets = document.querySelectorAll('.preloader img')
-
 class App {
   constructor() {
+    this.createAssets()
+
+    this.createSetViewPort()
+
     this.createBreakPoint()
 
     this.createContent()
@@ -35,6 +39,20 @@ class App {
     this.onResize()
   }
 
+  createAssets() {
+    this.assets = new Assets()
+  }
+
+  createSetViewPort() {
+    this.viewPortSetter = new viewPortSetter()
+  }
+
+  createBreakPoint() {
+    this.breakPoint = new BreakpointsObserver()
+
+    this.device = this.breakPoint.currentDevice
+  }
+
   createContent() {
     this.content = document.querySelector('.content')
 
@@ -50,22 +68,14 @@ class App {
   }
 
   createPreloader() {
-    this.preloader = new Preloader()
+    this.preloader = new Preloader({
+      assets: this.assets
+    })
 
     this.preloader.once('completed', () => {
       this.onPreloaded()
     })
   }
-
-  createBreakPoint() {
-    this.breakPoint = new BreakpointsObserver()
-
-    this.device = this.breakPoint.currentDevice
-  }
-
-  /**
-   * preloader
-   * */
 
   onPreloaded() {
     this.onResize()
@@ -215,7 +225,7 @@ class App {
 
   async onChange({ url, push = true }) {
     if (this.onChanging) {
-      return //I'm worrying that this method is gonna be called multiplex times and is's bring some trouble for the user interface.
+      return
     }
 
     this.onChanging = true
@@ -271,7 +281,7 @@ class App {
 
       this.page.show()
 
-      this.addLinkListeners() //q I'm worrying that this method is called multiplex times and it's not necessary to call it again and again. Just it's gonna make trouble for the browser.
+      this.addLinkListeners()
 
       this.onChanging = false
     } else {

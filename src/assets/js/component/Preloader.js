@@ -4,7 +4,7 @@ import GSAP from 'gsap'
 import { TextureLoader } from 'three'
 
 export default class Preloader extends Component {
-  constructor() {
+  constructor({ assets }) {
     super({
       element: '.preloader',
       elements: {
@@ -14,7 +14,7 @@ export default class Preloader extends Component {
       }
     })
 
-    window.TEXTURES = {}
+    this.assets = assets
 
     this.length = 0
 
@@ -22,13 +22,13 @@ export default class Preloader extends Component {
   }
 
   createLoader() {
-    this.assets = [...this.elements.assets.querySelectorAll('img')]
+    this.images = [...this.elements.assets.querySelectorAll('img')]
 
-    this.totalAssetsLength = this.assets.length
+    this.totalAssetsLength = this.images.length
 
     this.textureLoader = new TextureLoader()
 
-    this.assets.forEach(imageDom => {
+    this.images.forEach(imageDom => {
       const image = new Image()
 
       const id = imageDom.getAttribute('data-id')
@@ -42,7 +42,7 @@ export default class Preloader extends Component {
 
         texture.needsUpdate = true
 
-        window.TEXTURES[id] = texture
+        this.assets.textures[id] = texture
 
         this.onAssetLoaded()
       }
@@ -68,7 +68,9 @@ export default class Preloader extends Component {
   onLoaded() {
     return new Promise(resolve => {
       this.emit('completed')
+
       this.destroy()
+
       resolve()
     })
   }
