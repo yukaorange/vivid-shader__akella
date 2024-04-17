@@ -8,12 +8,14 @@ import * as THREE from 'three'
 import Plane from './Plane'
 
 export default class Home {
-  constructor({ scene, sizes, device }) {
+  constructor({ scene, sizes, device, assets }) {
     this.scene = scene
 
     this.sizes = sizes
 
     this.device = device
+
+    this.assets = assets
 
     this.x = {
       current: 0,
@@ -44,8 +46,6 @@ export default class Home {
       lerp: 0.1
     }
 
-    this.createGeometry()
-
     this.createPlane()
 
     this.scene.add(this.plane.mesh)
@@ -58,15 +58,11 @@ export default class Home {
     this.show()
   }
 
-  createGeometry() {
-    this.geometry = new PlaneGeometry(1, 1, 100, 100)
-  }
-
   createPlane() {
     this.plane = new Plane({
-      geometry: this.geometry,
       sizes: this.sizes,
-      device: this.device
+      device: this.device,
+      assets: this.assets
     })
   }
 

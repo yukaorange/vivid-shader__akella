@@ -9,12 +9,14 @@ import PostProcessPipeline from './class/PostProcessPipeline'
 import Home from './Home'
 
 export default class Canvas {
-  constructor({ template, dom, device }) {
+  constructor({ template, dom, device, assets }) {
     this.template = template
 
     this.container = dom
 
     this.device = device
+
+    this.assets = assets
 
     this.x = {
       start: 0,
@@ -106,7 +108,8 @@ export default class Canvas {
     this.home = new Home({
       scene: this.scene,
       sizes: this.sizes,
-      device: this.device
+      device: this.device,
+      assets: this.assets
     })
   }
 
