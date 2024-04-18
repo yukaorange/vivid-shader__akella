@@ -51,6 +51,8 @@ class App {
     this.breakPoint = new BreakpointsObserver()
 
     this.device = this.breakPoint.currentDevice
+
+    this.currentWidth = window.innerWidth
   }
 
   createContent() {
@@ -158,12 +160,14 @@ class App {
 
       const widthDifference = Math.abs(this.currentWidth - newWidth)
 
-      if (widthDifference <= 0.1) {
+      if (widthDifference <= 1) {
         this.resizeFlag = false
       } else {
         this.resizeFlag = true
       }
-    }, 10)
+
+      this.currentWidth = newWidth
+    }, 100)
 
     if (this.canvas && this.canvas.onResize && this.resizeFlag === true) {
       this.canvas.onResize(this.device)

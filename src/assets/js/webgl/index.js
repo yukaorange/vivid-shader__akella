@@ -4,7 +4,7 @@ import { PerspectiveCamera, WebGLRenderer, Scene, Clock } from 'three'
 import { Pane } from 'tweakpane'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-import PostProcessPipeline from './class/PostProcessPipeline'
+import PostProcessPipeline from './postprocess/PostProcessPipeline'
 
 import Home from './Home'
 
