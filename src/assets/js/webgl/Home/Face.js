@@ -25,6 +25,8 @@ export default class Plane {
       sizes: this.sizes,
       device: this.device
     })
+
+    this.updateScale(this.device)
   }
 
   createTexture() {
@@ -49,15 +51,13 @@ export default class Plane {
   }
 
   createMesh() {
-    this.mesh = new THREE.Mesh(this.geometry, this.material)
+    // this.mesh = new THREE.Mesh(this.geometry, this.material)
   }
 
   calculateBounds({ sizes, device }) {
     this.sizes = sizes
 
     this.device = device
-
-    this.updateScale(this.device)
 
     this.updateX()
 
@@ -89,6 +89,8 @@ export default class Plane {
    */
   onResize(value) {
     this.calculateBounds(value)
+
+    this.updateScale(this.device)
   }
 
   /**

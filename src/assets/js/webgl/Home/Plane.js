@@ -26,6 +26,8 @@ export default class Plane {
       sizes: this.sizes,
       device: this.device
     })
+
+    this.updateScale(this.device)
   }
 
   createTexture() {
@@ -58,65 +60,66 @@ export default class Plane {
 
     this.device = device
 
-    this.updateScale(this.device)
-
+    
     this.updateX()
-
+    
     this.updateY()
   }
-
+  
   /**
    * Animations
-   */
-  show() {
-    GSAP.fromTo(
-      this.mesh.material.uniforms.uAlpha,
-      {
+  */
+ show() {
+   GSAP.fromTo(
+     this.mesh.material.uniforms.uAlpha,
+     {
         value: 0
       },
       {
         value: 1
       }
-    )
-  }
-
-  hide() {
-    GSAP.to(this.mesh.material.uniforms.uAlpha, {
-      value: 0
-    })
-  }
-  /**
-   * events
-   */
-  onResize(value) {
-    this.calculateBounds(value)
-  }
-
-  /**
-   * update
-   */
-
-  updateScale() {
-    // console.log('plane device : ', this.device)
-
-    if (this.device === 'sp') {
-      this.mesh.scale.x = this.sizes.width / 2
-
-      this.mesh.scale.y = this.sizes.width / 2
-    } else {
-      this.mesh.scale.x = this.sizes.height / 2
-
-      this.mesh.scale.y = this.sizes.height / 2
+      )
     }
-  }
-
-  updateX(x = 0) {}
-
-  updateY(y = 0) {}
+    
+    hide() {
+      GSAP.to(this.mesh.material.uniforms.uAlpha, {
+        value: 0
+      })
+    }
+    /**
+     * events
+    */
+   onResize(value) {
+     this.calculateBounds(value)
+     
+     this.updateScale(this.device)
+    }
+    
+    /**
+     * update
+    */
+   
+   updateScale() {
+     // console.log('plane device : ', this.device)
+     
+     if (this.device === 'sp') {
+       this.mesh.scale.x = this.sizes.width / 2
+       
+       this.mesh.scale.y = this.sizes.width / 2
+      } else {
+        this.mesh.scale.x = this.sizes.height / 2
+        
+        this.mesh.scale.y = this.sizes.height / 2
+      }
+    }
+    
+    updateX(x = 0) {}
+    
+    updateY(y = 0) {}
 
   update({ scroll, time, params }) {
     this.updateX(scroll.x)
-
+    
     this.updateY(scroll.y)
 
     this.mesh.rotation.y += time.delta
