@@ -5,7 +5,7 @@ import { PlaneGeometry } from 'three'
 
 import * as THREE from 'three'
 
-import Plane from './Plane'
+import Plane from './object/Plane'
 
 export default class Home {
   constructor({ scene, sizes, device, assets }) {
