@@ -14,6 +14,8 @@ export default class Canvas {
 
     this.container = dom
 
+    this.bounds = this.container.getBoundingClientRect()
+
     this.device = device
 
     this.assets = assets
@@ -59,9 +61,9 @@ export default class Canvas {
 
     this.renderer.setClearColor(0x000000, 0)
 
-    this.renderer.setPixelRatio(window.devicePixelRatio)
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-    this.renderer.setSize(window.innerWidth, window.innerHeight)
+    this.renderer.setSize(this.bounds.width, this.bounds.height)
 
     this.container.appendChild(this.renderer.domElement)
   }
@@ -72,7 +74,7 @@ export default class Canvas {
 
   createCamera() {
     const fov = 45
-    const aspect = window.innerWidth / window.innerHeight
+    const aspect = this.bounds.width / this.bounds.height
     const near = 0.1
     const far = 1000
 
@@ -84,11 +86,11 @@ export default class Canvas {
   createPane() {
     this.pane = new Pane()
 
-    this.PARAMS = {
+    this.controledParams = {
       alpha: 1
     }
 
-    this.pane.addBinding(this.PARAMS, 'alpha', {
+    this.pane.addBinding(this.controledParams, 'alpha', {
       min: 0,
       max: 1,
       step: 0.01
@@ -142,33 +144,36 @@ export default class Canvas {
   }
 
   onResize(device) {
-    this.renderer.setSize(window.innerWidth, window.innerHeight)
+    this.bounds = this.container.getBoundingClientRect()
 
-    const aspect = window.innerWidth / window.innerHeight
+    this.renderer.setSize(this.bounds.width, this.bounds.height)
+
+    const aspect = this.bounds.width / this.bounds.height
 
     const fov = this.camera.fov * (Math.PI / 180) // default camera.fov = 45deg. result fov is in radians. (1/4 PI rad)
 
     const height = 2 * Math.tan(fov / 2) * this.camera.position.z //z = 5 is setted at this.createCamera
 
-    const width = height * aspect //To fit clip space to screen.
+    const width = height * aspect //to fit screen
 
+    // this is viewport size
     this.sizes = {
-      //Calclated viewport space sizes.
       height: height,
       width: width
     }
 
-    const values = {
-      sizes: this.sizes,
-      device: device
-    }
-
     if (this.home) {
-      this.home.onResize(values)
+      this.home.onResize({
+        sizes: this.sizes,
+        device: device
+      })
     }
 
     if (this.postProcessPipeline) {
-      this.postProcessPipeline.resize(values)
+      this.postProcessPipeline.resize({
+        sizes: this.sizes,
+        device: device
+      })
     }
 
     this.camera.aspect = aspect
@@ -185,18 +190,6 @@ export default class Canvas {
     const values = {
       x: this.x,
       y: this.y
-    }
-
-    if (this.about) {
-      this.about.onTouchDown(values)
-    }
-
-    if (this.collections) {
-      this.collections.onTouchDown(values)
-    }
-
-    if (this.detail) {
-      this.detail.onTouchDown(values)
     }
 
     if (this.home) {
@@ -304,7 +297,7 @@ export default class Canvas {
       this.home.update({
         scroll: scroll,
         time: this.time,
-        params: this.PARAMS
+        params: this.controledParams
       })
     }
 
