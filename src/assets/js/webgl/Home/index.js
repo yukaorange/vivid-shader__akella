@@ -48,86 +48,85 @@ export default class Home {
 
     this.createPlane()
 
-    
     this.onResize({
       sizes: this.sizes,
       device: this.device
     })
-    
+
     this.show()
   }
-  
+
   createPlane() {
     this.plane = new Plane({
       sizes: this.sizes,
       device: this.device,
       assets: this.assets
     })
-    
+
     this.scene.add(this.plane.mesh)
   }
-  
+
   /**
    * animate
-  */
- 
- show() {
-   this.plane.show()
+   */
+
+  show() {
+    this.plane.show()
   }
 
   hide() {
     this.plane.hide()
   }
-  
+
   /**
    * events
-  */
- onResize(values) {
-   if (this.plane) {
-     this.plane.onResize(values)
+   */
+  onResize(values) {
+    if (this.plane) {
+      this.plane.onResize(values)
     }
   }
-  
+
   onTouchDown({ x, y }) {
     this.speed.target = 1
     this.scrollCurrent.x = this.scroll.x
     this.scrollCurrent.y = this.scroll.y
   }
-  
+
   onTouchMove({ x, y }) {
     const xDistance = x.start - x.end
     const yDistance = y.start - y.end
-    
+
     this.x.target = this.scrollCurrent.x - xDistance
     this.y.target = this.scrollCurrent.y - yDistance
   }
-  
+
   onTouchUp({ x, y }) {
     this.speed.target = 0
   }
-  
+
   onWheel({ pixelX, pixelY }) {
     this.x.target -= pixelX
     this.y.target -= pixelY
   }
-  
+
   /**
    * update
-  */
- update({ scroll, time, params }) {
-   if (!this.plane) return
-   
-   this.plane.update({
-     scroll: scroll,
-     time: time,
-     params: params
+   */
+  update({ scroll, time, params }) {
+    if (!this.plane) return
+
+    this.plane.update({
+      scroll: scroll,
+      time: time,
+      params: params
     })
   }
-  
+
   /**
    * destroy
-  */
- destroy() {
-   this.scene.remove(this.plane.mesh)
+   */
+  destroy() {
+    this.scene.remove(this.plane.mesh)
   }
 }
