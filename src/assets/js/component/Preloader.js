@@ -112,12 +112,19 @@ export default class Preloader extends Component {
   }
 
   onLoaded() {
+    this.emit('completed')
+  }
+
+  async hide() {
     return new Promise(resolve => {
-      this.emit('completed')
-
-      this.destroy()
-
-      resolve()
+      GSAP.to(this.element, {
+        autoAlpha: 0,
+        duration: 1,
+        ease: 'expo.out',
+        onComplete: () => {
+          resolve()
+        }
+      })
     })
   }
 

@@ -11,7 +11,7 @@ export default class Page {
     this.selector = element
 
     this.selectorChildren = {
-      ...elements,
+      ...elements
       // asyncImages: '[data-src]'
     }
   }
@@ -65,6 +65,11 @@ export default class Page {
         this.animationIn = animation
       } else {
         this.animationIn = GSAP.timeline()
+
+        this.animationIn.to(this.element, {
+          autoAlpha: 1,
+          duration: 1
+        })
       }
 
       this.animationIn.call(_ => {
