@@ -212,23 +212,6 @@ class App {
   }
 
   /**
-   * link
-   */
-  addLinkListeners() {
-    const links = document.querySelectorAll('a')
-
-    each(links, link => {
-      link.onclick = event => {
-        const { href } = link
-
-        event.preventDefault()
-
-        this.onChange({ url: href })
-      }
-    })
-  }
-
-  /**
    * page transition
    */
   initBarba() {

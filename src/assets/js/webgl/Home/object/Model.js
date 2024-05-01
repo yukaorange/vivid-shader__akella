@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import vertex from '@js/shaders/vertex.glsl'
 import fragment from '@js/shaders/fragment.glsl'
 
-export default class Plane {
+export default class Model {
   constructor({ sizes, device, assets }) {
     this.sizes = sizes
 

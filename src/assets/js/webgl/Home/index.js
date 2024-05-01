@@ -113,13 +113,14 @@ export default class Home {
   /**
    * update
    */
-  update({ scroll, time, params }) {
+  update({ scroll, time, params, flag }) {
     if (!this.plane) return
 
     this.plane.update({
       scroll: scroll,
       time: time,
-      params: params
+      params: params,
+      flag: flag
     })
   }
 
