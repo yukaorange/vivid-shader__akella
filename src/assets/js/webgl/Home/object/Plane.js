@@ -113,12 +113,12 @@ export default class Plane {
 
   updateY(y = 0) {}
 
-  update({ scroll, time, params }) {
+  update({ scroll, time, params, flag }) {
     this.updateX(scroll.x)
 
     this.updateY(scroll.y)
 
-    this.mesh.rotation.y += time.delta
+    // this.mesh.rotation.y += time.delta
 
     this.material.uniforms.uTime.value = time.current
 

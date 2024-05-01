@@ -4,7 +4,7 @@ import { PerspectiveCamera, WebGLRenderer, Scene, Clock } from 'three'
 import { Pane } from 'tweakpane'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-import PostProcessPipeline from './Postprocess/PostProcessPipeline'
+import Composer from './Postprocess/Composer'
 
 import Home from './Home'
 
@@ -48,7 +48,7 @@ export default class Canvas {
 
     this.createClock()
 
-    this.createPostProcessPipeline()
+    this.createPostProcess()
 
     this.onResize(this.device)
   }
@@ -95,6 +95,9 @@ export default class Canvas {
       max: 1,
       step: 0.01
     })
+
+    //hide pane
+    this.pane.containerElem_.style = 'display: none;'
   }
 
   createControls() {
@@ -278,16 +281,29 @@ export default class Canvas {
   /**
    * postprocess
    */
-  createPostProcessPipeline() {
-    this.postProcessPipeline = new PostProcessPipeline({
+  createPostProcess() {
+    this.postProcess = new Composer({
       renderer: this.renderer,
       scene: this.scene,
       camera: this.camera
     })
+  }
 
-    this.postProcessPipeline.createPasses()
+  /**
+   * animationFlag
+   */
+  updateTimeAlongAnimationFlag(time) {
+    this.animationInterval = 0.01
 
-    this.postProcessPipeline.createPostProcess()
+    this.lastAnimationTime = this.lastAnimationTime || 0
+
+    let result = time.current - this.lastAnimationTime > this.animationInterval
+
+    if (result == true) {
+      this.lastAnimationTime = time.current
+    }
+
+    this.flag = result
   }
 
   /**loop */
@@ -297,9 +313,12 @@ export default class Canvas {
       this.home.update({
         scroll: scroll,
         time: this.time,
-        params: this.controledParams
+        params: this.controledParams,
+        flag: this.flag
       })
     }
+
+    this.updateTimeAlongAnimationFlag(this.time)
 
     this.time.delta = this.clock.getDelta()
 
@@ -307,6 +326,6 @@ export default class Canvas {
 
     this.time.current += this.time.delta
 
-    this.postProcessPipeline.render()
+    this.postProcess.composer.render()
   }
 }
