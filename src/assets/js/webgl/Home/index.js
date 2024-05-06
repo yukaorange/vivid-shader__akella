@@ -6,6 +6,7 @@ import { PlaneGeometry } from 'three'
 import * as THREE from 'three'
 
 import Plane from './object/Plane'
+import Model from './object/Model'
 
 export default class Home {
   constructor({ scene, sizes, device, assets }) {
@@ -46,7 +47,9 @@ export default class Home {
       lerp: 0.1
     }
 
-    this.createPlane()
+    // this.createPlane()
+
+    this.createModel()
 
     this.onResize({
       sizes: this.sizes,
@@ -66,16 +69,26 @@ export default class Home {
     this.scene.add(this.plane.mesh)
   }
 
+  createModel() {
+    this.model = new Model({
+      sizes: this.sizes,
+      device: this.device,
+      assets: this.assets
+    })
+
+    this.scene.add(this.model.model)
+  }
+
   /**
    * animate
    */
 
   show() {
-    this.plane.show()
+    // this.plane.show()
   }
 
   hide() {
-    this.plane.hide()
+    // this.plane.hide()
   }
 
   /**

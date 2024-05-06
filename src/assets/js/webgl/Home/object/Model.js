@@ -19,7 +19,7 @@ export default class Model {
 
     this.createMaterial()
 
-    this.createMesh()
+    this.addMaterialToModel()
 
     this.calculateBounds({
       sizes: this.sizes,
@@ -34,7 +34,25 @@ export default class Model {
   }
 
   cretateGeometry() {
-    this.geometry = new THREE.PlaneGeometry(1, 1, 32, 32)
+    this.model = this.assets.models.model.scene.children[0]
+
+    const size = 0.075
+
+    this.model.scale.set(size, size, size)
+
+    const rotate = -Math.PI / 2
+
+    this.model.rotateZ(rotate)
+
+    this.box = new THREE.Box3().setFromObject(this.model)
+
+    this.boundingSize = new THREE.Vector3()
+
+    this.box.getSize(this.boundingSize)
+
+    console.log(this.boundingSize)
+
+    this.model.position.set(0, -this.boundingSize.y / 2, 0)
   }
 
   createMaterial() {
@@ -50,8 +68,12 @@ export default class Model {
     })
   }
 
-  createMesh() {
-    // this.mesh = new THREE.Mesh(this.geometry, this.material)
+  addMaterialToModel() {
+    // this.model.traverse(object => {
+    //   if (object.isMesh) {
+    //     object.material = this.material
+    //   }
+    // })
   }
 
   calculateBounds({ sizes, device }) {
@@ -99,16 +121,6 @@ export default class Model {
 
   updateScale() {
     // console.log('plane device : ', this.device)
-
-    if (this.device === 'sp') {
-      this.mesh.scale.x = this.sizes.width / 2
-
-      this.mesh.scale.y = this.sizes.width / 2
-    } else {
-      this.mesh.scale.x = this.sizes.height / 2
-
-      this.mesh.scale.y = this.sizes.height / 2
-    }
   }
 
   updateX(x = 0) {}
@@ -119,8 +131,6 @@ export default class Model {
     this.updateX(scroll.x)
 
     this.updateY(scroll.y)
-
-    this.mesh.rotation.y += time.delta
 
     this.material.uniforms.uTime.value = time.current
   }

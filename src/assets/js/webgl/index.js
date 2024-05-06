@@ -1,10 +1,11 @@
 import GSAP from 'gsap'
 import { PerspectiveCamera, WebGLRenderer, Scene, Clock } from 'three'
+import * as THREE from 'three'
 
 import { Pane } from 'tweakpane'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-import Composer from './Postprocess/Composer'
+import Composer from './postprocess/Composer.js'
 
 import Home from './Home'
 
@@ -39,6 +40,8 @@ export default class Canvas {
     this.createRenderer()
 
     this.createScene()
+
+    this.createLight()
 
     this.createCamera()
 
@@ -81,6 +84,12 @@ export default class Canvas {
     this.camera = new PerspectiveCamera(fov, aspect, near, far)
 
     this.camera.position.z = 5
+  }
+
+  createLight() {
+    const light = new THREE.DirectionalLight(0xffffff, 1)
+    light.position.set(0, 2, 2)
+    this.scene.add(light)
   }
 
   createPane() {
