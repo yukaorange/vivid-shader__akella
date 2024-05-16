@@ -113,7 +113,7 @@ export default class Canvas {
     })
 
     //hide pane
-    // this.pane.containerElem_.style = 'display: none;'
+    this.pane.containerElem_.style = 'display: none;'
   }
 
   createControls() {
