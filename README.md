@@ -10,8 +10,9 @@ I make psychedelic color.
 [noise](https://gist.github.com/patriciogonzalezvivo/670c22f3966e662d2f83)
 
 # Deploy
-[deploy](https://depth-texture-for-geometry-akella.vercel.app/)
+[deploy](https://vivid-shader-akella-ew46ui94k-yukaoranges-projects.vercel.app/)
 
-![image](https://github.com/yukaorange/depth-texture-for-geometry__akella/assets/98954503/896d0f7d-dc1f-490d-87de-e10509d886b6)
+![image](https://github.com/yukaorange/vivid-shader__akella/assets/98954503/905c7c39-082b-4c9a-b288-af56a8d2dc06)
+
 
 # References
