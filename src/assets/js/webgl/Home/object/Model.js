@@ -15,11 +15,11 @@ export default class Model {
 
     this.createTexture()
 
+    this.createMaterial()
+
     this.cretateGeometry()
 
     this.createMaterial()
-
-    this.addMaterialToModel()
 
     this.calculateBounds({
       sizes: this.sizes,
@@ -30,29 +30,23 @@ export default class Model {
   }
 
   createTexture() {
-    // this.texture = this.assets.textures[0]
+    this.texture = this.assets.textures[3] //hologram
   }
 
   cretateGeometry() {
-    this.model = this.assets.models.model.scene.children[0]
+    this.model = this.assets.models.model.scene
 
-    const size = 0.075
+    this.model.traverse(object => {
+      if (object.isMesh) {
+        const size = 0.01
 
-    this.model.scale.set(size, size, size)
+        object.scale.set(size, size, size)
 
-    const rotate = -Math.PI / 2
+        object.geometry.center()
 
-    this.model.rotateZ(rotate)
-
-    this.box = new THREE.Box3().setFromObject(this.model)
-
-    this.boundingSize = new THREE.Vector3()
-
-    this.box.getSize(this.boundingSize)
-
-    console.log(this.boundingSize)
-
-    this.model.position.set(0, -this.boundingSize.y / 2, 0)
+        object.material = this.material
+      }
+    })
   }
 
   createMaterial() {
@@ -61,19 +55,25 @@ export default class Model {
       fragmentShader: fragment,
       side: THREE.DoubleSide,
       uniforms: {
-        // uTexture: { value: this.texture },
+        uTexture: { value: this.texture },
         uAlpha: { value: 0 },
-        uTime: { value: 0 }
+        uTime: { value: 0 },
+        uProgress: { value: 0 },
+        uResolution: { value: new THREE.Vector2() }
       }
     })
+
+    // this.material.needsUpdate = true
   }
 
-  addMaterialToModel() {
-    // this.model.traverse(object => {
-    //   if (object.isMesh) {
-    //     object.material = this.material
-    //   }
-    // })
+  calcBoxToCenter() {
+    this.box = new THREE.Box3().setFromObject(this.model)
+
+    this.boundingSize = new THREE.Vector3()
+
+    this.box.getSize(this.boundingSize)
+
+    this.model.position.set(0, -this.boundingSize.y / 2, 0)
   }
 
   calculateBounds({ sizes, device }) {
@@ -84,6 +84,8 @@ export default class Model {
     this.updateX()
 
     this.updateY()
+
+    this.updateScale()
   }
 
   /**
@@ -120,18 +122,32 @@ export default class Model {
    */
 
   updateScale() {
-    // console.log('plane device : ', this.device)
+    this.model.traverse(object => {
+      if (object.isMesh) {
+        object.material.uniforms.uResolution.value.x = window.innerWidth
+
+        object.material.uniforms.uResolution.value.y = window.innerHeight
+      }
+    })
   }
 
   updateX(x = 0) {}
 
   updateY(y = 0) {}
 
-  update({ scroll, time }) {
+  update({ scroll, time, params, flag }) {
     this.updateX(scroll.x)
 
     this.updateY(scroll.y)
 
     this.material.uniforms.uTime.value = time.current
+
+    this.model.traverse(object => {
+      if (object.isMesh) {
+        object.material.uniforms.uTime.value = time.current
+
+        object.material.uniforms.uProgress.value = params.progress
+      }
+    })
   }
 }

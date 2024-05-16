@@ -59,15 +59,15 @@ export default class Home {
     this.show()
   }
 
-  createPlane() {
-    this.plane = new Plane({
-      sizes: this.sizes,
-      device: this.device,
-      assets: this.assets
-    })
+  // createPlane() {
+  //   this.plane = new Plane({
+  //     sizes: this.sizes,
+  //     device: this.device,
+  //     assets: this.assets
+  //   })
 
-    this.scene.add(this.plane.mesh)
-  }
+  //   this.scene.add(this.plane.mesh)
+  // }
 
   createModel() {
     this.model = new Model({
@@ -95,8 +95,8 @@ export default class Home {
    * events
    */
   onResize(values) {
-    if (this.plane) {
-      this.plane.onResize(values)
+    if (this.model) {
+      this.model.onResize(values)
     }
   }
 
@@ -127,9 +127,7 @@ export default class Home {
    * update
    */
   update({ scroll, time, params, flag }) {
-    if (!this.plane) return
-
-    this.plane.update({
+    this.model?.update({
       scroll: scroll,
       time: time,
       params: params,
