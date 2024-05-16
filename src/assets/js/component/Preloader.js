@@ -3,11 +3,13 @@ import each from 'lodash/each'
 import GSAP from 'gsap'
 
 import { TextureLoader } from 'three'
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
-import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
-const modelPass = '/model/human.glb'
+const modelPass = '/model/chess/scene.gltf'
 const envPass = '/textures/hologram-map.webp'
+
+const dracoPass = '/draco/'
 
 export default class Preloader extends Component {
   constructor({ assets }) {
@@ -36,7 +38,7 @@ export default class Preloader extends Component {
 
     this.dracoLoader = new DRACOLoader()
 
-    this.dracoLoader.setDecoderPath('/draco/')
+    this.dracoLoader.setDecoderPath(dracoPass)
 
     this.gltfLoader = new GLTFLoader()
 
@@ -46,7 +48,7 @@ export default class Preloader extends Component {
       this.gltfLoader.load(
         modelPass,
         model => {
-          this.assets.models['face'] = model
+          this.assets.models['model'] = model
           resolve()
         },
         undefined,

@@ -42,6 +42,8 @@ html {
   scrollbar-width: thin; //webkit
   scrollbar-color: #444 #ccc; //webkit
   min-height: 100vh;
+
+  overscroll-behavior-y: none;
 }
 
 @include mq(sp) {
@@ -55,6 +57,8 @@ body {
   font-size: 1.6rem;
   line-height: 1.5;
   letter-spacing: 0.1em;
+
+  overflow: hidden;
 
   font-family: "Noto Sans JP", YuGothic, "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", sans-serif;
 }

@@ -15,11 +15,11 @@ export default class Model {
 
     this.createTexture()
 
+    this.createMaterial()
+
     this.cretateGeometry()
 
     this.createMaterial()
-
-    this.createMesh()
 
     this.calculateBounds({
       sizes: this.sizes,
@@ -30,11 +30,23 @@ export default class Model {
   }
 
   createTexture() {
-    // this.texture = this.assets.textures[0]
+    this.texture = this.assets.textures[3] //hologram
   }
 
   cretateGeometry() {
-    this.geometry = new THREE.PlaneGeometry(1, 1, 32, 32)
+    this.model = this.assets.models.model.scene
+
+    this.model.traverse(object => {
+      if (object.isMesh) {
+        const size = 0.01
+
+        object.scale.set(size, size, size)
+
+        object.geometry.center()
+
+        object.material = this.material
+      }
+    })
   }
 
   createMaterial() {
@@ -43,15 +55,25 @@ export default class Model {
       fragmentShader: fragment,
       side: THREE.DoubleSide,
       uniforms: {
-        // uTexture: { value: this.texture },
+        uTexture: { value: this.texture },
         uAlpha: { value: 0 },
-        uTime: { value: 0 }
+        uTime: { value: 0 },
+        uProgress: { value: 0 },
+        uResolution: { value: new THREE.Vector2() }
       }
     })
+
+    // this.material.needsUpdate = true
   }
 
-  createMesh() {
-    // this.mesh = new THREE.Mesh(this.geometry, this.material)
+  calcBoxToCenter() {
+    this.box = new THREE.Box3().setFromObject(this.model)
+
+    this.boundingSize = new THREE.Vector3()
+
+    this.box.getSize(this.boundingSize)
+
+    this.model.position.set(0, -this.boundingSize.y / 2, 0)
   }
 
   calculateBounds({ sizes, device }) {
@@ -62,6 +84,8 @@ export default class Model {
     this.updateX()
 
     this.updateY()
+
+    this.updateScale()
   }
 
   /**
@@ -98,30 +122,32 @@ export default class Model {
    */
 
   updateScale() {
-    // console.log('plane device : ', this.device)
+    this.model.traverse(object => {
+      if (object.isMesh) {
+        object.material.uniforms.uResolution.value.x = window.innerWidth
 
-    if (this.device === 'sp') {
-      this.mesh.scale.x = this.sizes.width / 2
-
-      this.mesh.scale.y = this.sizes.width / 2
-    } else {
-      this.mesh.scale.x = this.sizes.height / 2
-
-      this.mesh.scale.y = this.sizes.height / 2
-    }
+        object.material.uniforms.uResolution.value.y = window.innerHeight
+      }
+    })
   }
 
   updateX(x = 0) {}
 
   updateY(y = 0) {}
 
-  update({ scroll, time }) {
+  update({ scroll, time, params, flag }) {
     this.updateX(scroll.x)
 
     this.updateY(scroll.y)
 
-    this.mesh.rotation.y += time.delta
-
     this.material.uniforms.uTime.value = time.current
+
+    this.model.traverse(object => {
+      if (object.isMesh) {
+        object.material.uniforms.uTime.value = time.current
+
+        object.material.uniforms.uProgress.value = params.progress
+      }
+    })
   }
 }

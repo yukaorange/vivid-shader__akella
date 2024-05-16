@@ -1,10 +1,11 @@
 import GSAP from 'gsap'
 import { PerspectiveCamera, WebGLRenderer, Scene, Clock } from 'three'
+import * as THREE from 'three'
 
 import { Pane } from 'tweakpane'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-import Composer from './Postprocess/Composer'
+import Composer from './postprocess/Composer.js'
 
 import Home from './Home'
 
@@ -40,6 +41,8 @@ export default class Canvas {
 
     this.createScene()
 
+    this.createLight()
+
     this.createCamera()
 
     this.createPane()
@@ -59,7 +62,7 @@ export default class Canvas {
       antialias: true
     })
 
-    this.renderer.setClearColor(0x000000, 0)
+    this.renderer.setClearColor(0x000000, 1.0)
 
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -83,11 +86,18 @@ export default class Canvas {
     this.camera.position.z = 5
   }
 
+  createLight() {
+    const light = new THREE.DirectionalLight(0xffffff, 1)
+    light.position.set(-2, 2, 2)
+    this.scene.add(light)
+  }
+
   createPane() {
     this.pane = new Pane()
 
     this.controledParams = {
-      alpha: 1
+      alpha: 1,
+      progress: 0
     }
 
     this.pane.addBinding(this.controledParams, 'alpha', {
@@ -96,8 +106,14 @@ export default class Canvas {
       step: 0.01
     })
 
+    this.pane.addBinding(this.controledParams, 'progress', {
+      min: 0,
+      max: 1,
+      step: 0.01
+    })
+
     //hide pane
-    this.pane.containerElem_.style = 'display: none;'
+    // this.pane.containerElem_.style = 'display: none;'
   }
 
   createControls() {
@@ -172,8 +188,8 @@ export default class Canvas {
       })
     }
 
-    if (this.postProcessPipeline) {
-      this.postProcessPipeline.resize({
+    if (this.postProcess) {
+      this.postProcess.resize({
         sizes: this.sizes,
         device: device
       })
